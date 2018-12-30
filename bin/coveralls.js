@@ -50,9 +50,9 @@ function getCoverage(text) {
 		all: branches.all + lines.all,
 	}
 
-	lines.percent = parseInt(lines.now / lines.all * 10000) / 100;
-	branches.percent = parseInt(branches.now / branches.all * 10000) / 100;
-	coverage.percent = parseInt(coverage.now / coverage.all * 10000) / 100;
+	lines.percent = lines.all ? parseInt(lines.now / lines.all * 10000) / 100 : 0 ;
+	branches.percent = branches.all ? parseInt(branches.now / branches.all * 10000) / 100 : 0;
+	coverage.percent = coverage.all ? parseInt(coverage.now / coverage.all * 10000) / 100 : 0;
 
 	
 	const filename = texts[0].replace(dir, "");
@@ -95,12 +95,12 @@ files.forEach(({filename, coverage}) => {
 	let color = "";
 	const percent = coverage.percent;
 
-	if (percent > 90) {
+	if (percent > 80) {
 		color = "\x1b[32m";
 		if (!~detail.indexOf("high")) {
 			return;
 		}
-	} else if (percent > 70) {
+	} else if (percent > 60) {
 		color = "\x1b[33m";
 		if (!~detail.indexOf("medium")) {
 			return;
